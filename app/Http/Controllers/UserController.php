@@ -51,9 +51,11 @@ public function tambah()
     }
     public function hapus($id)
 {
-    $user = UserModel::find($id);
-    $user->delete();
+    $user = UserModel::with('level')->get();
+    //dd($user);
 
-    return redirect('/user');
+    return view('user', ['data' => $user]);
+
+    
 }
 }
