@@ -75,7 +75,7 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'supplier_kode' => 'required|string|min:3|unique:m_suppliers,supplier_kode',
+            'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode',
             'supplier_nama' => 'required|string|max:100',
             'supplier_alamat' => 'required|string|max:100',
         ]);
@@ -128,7 +128,7 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'supplier_kode' => 'required|string|min:3|unique:m_suppliers,supplier_kode,'.$id.',supplier_id',
+            'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode,'.$id.',supplier_id',
             'supplier_nama' => 'required|string|max:100',
             'supplier_alamat' => 'required|string|max:100'
         ]);
@@ -170,7 +170,7 @@ class SupplierController extends Controller
 
         if($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'supplier_kode' => 'required|string|min:3|unique:m_suppliers,supplier_kode',
+                'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode',
                 'supplier_nama' => 'required|string|max:100',
                 'supplier_alamat' => 'required|string|max:100',
             ];
@@ -207,7 +207,7 @@ class SupplierController extends Controller
         // cek apakah request dari ajax
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'supplier_kode' => 'required|string|min:3|unique:m_suppliers,supplier_kode,'.$id.',supplier_id',
+                'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode,'.$id.',supplier_id',
                 'supplier_nama' => 'required|string|max:100',
                 'supplier_alamat' => 'required|string|max:100'
             ];
