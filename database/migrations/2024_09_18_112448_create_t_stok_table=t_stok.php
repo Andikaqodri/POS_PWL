@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('t_stoks', function (Blueprint $table) {
-            $table->bigIncrements('stok_id'); // Menambahkan kolom stok_id
-            $table->bigInteger('barang_id')->unsigned(); // Menambahkan kolom barang_id
-            $table->bigInteger('user_id')->unsigned(); // Menambahkan kolom user_id
-            $table->bigInteger('supplier_id')->unsigned();
-            $table->dateTime('stok_tanggal'); // Menambahkan kolom stok_tanggal
-            $table->integer('stok_jumlah'); // Menambahkan kolom stok_jumlah
-            $table->timestamps(); // Menambahkan kolom created_at dan updated_at
+        Schema::create('t_stok', function(Blueprint $table) {
+            $table->id('stok_id');
+            $table->unsignedBigInteger('supplier_id')->index(); //untuk Foreign Key
+            $table->unsignedBigInteger('barang_id')->index(); //untuk Foreign Key
+            $table->unsignedBigInteger('user_id')->index(); //untuk Foreign Key
+            $table->dateTime('stok_tanggal');
+            $table->integer('stok_jumlah');
+            $table->timestamps();
 
+            //Mendefinisikan Foreign Key pada kolom supplier_id mengacu pada kolom supplier_id di tabel m_supplier
+            $table->foreign('supplier_id')->references('supplier_id')->on('m_supplier');
+            //Mendefinisikan Foreign Key pada kolom barang_id mengacu pada kolom barang_id di tabel m_barang
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
+            //Mendefinisikan Foreign Key pada kolom user_id mengacu pada kolom user_id di tabel m_user
             $table->foreign('user_id')->references('user_id')->on('m_user');
-            $table->foreign('barang_id')->references('barang_id')->on('m_barangs');
-            $table->foreign('supplier_id')->references('supplier_id')->on('m_suppliers');
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('t_stoks');
+        Schema::dropIfExists('t_stok');
     }
 };

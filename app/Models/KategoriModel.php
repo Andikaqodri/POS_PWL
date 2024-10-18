@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-use function Laravel\Prompts\password;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KategoriModel extends Model
 {
-    use HasFactory;
-
-    protected $table = 'm_kategoris';
+    protected $table = 'm_kategori';
     protected $primaryKey = 'kategori_id';
-    /**
-     * The attributes that are mass assignable
-     * 
-     * @var array
-     */
-    protected $fillable = ['kategori_id', 'kategori_kode', 'kategori_nama'];
+    protected $fillable = ['kategori_kode', 'kategori_nama'];
+
+    // Relasi ke model Barang
+    public function barang(): HasMany
+    {
+        return $this->hasMany(BarangModel::class, 'kategori_id', 'kategori_id');
+    }
 }
