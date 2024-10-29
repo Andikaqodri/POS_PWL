@@ -19,5 +19,6 @@ use App\Http\Controllers\Api\LoginController; // Tambahkan titik koma di akhir
 Route::post('/register', [RegisterController::class, '__invoke'])->name('register');
 Route::post('/login', [LoginController::class, '__invoke'])->name('login');
 Route::middleware('auth:api')->get('/user', function(Request $request) {
+Route::post('/logout',App\Http\Controllers\Api\LogoutController::class)->name('logout');
     return $request->user();
 });
