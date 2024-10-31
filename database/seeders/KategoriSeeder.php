@@ -6,35 +6,35 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class KategoriSeeder extends Seeder
+class KategorisSeeder extends Seeder
 {
     public function run(): void
     {
         $data = [
             [
                 'kategori_id' => 1,
-                'kategori_kode' => 'SBK',
-                'kategori_nama' => 'Sembako',
+                'kategori_kode' => 'KT001',
+                'kategori_nama' => 'Elektronik Rumah',
             ],
             [
                 'kategori_id' => 2,
-                'kategori_kode' => 'SNK',
-                'kategori_nama' => 'Makanan ringan',
+                'kategori_kode' => 'KT002',
+                'kategori_nama' => 'Peralatan Melukis',
             ],
             [
                 'kategori_id' => 3,
-                'kategori_kode' => 'MND',
-                'kategori_nama' => 'Peralatan Mandi',
+                'kategori_kode' => 'KT003',
+                'kategori_nama' => 'Mainan Anak',
             ],
             [
                 'kategori_id' => 4,
-                'kategori_kode' => 'BAY',
-                'kategori_nama' => 'Keperluan Bayi',
+                'kategori_kode' => 'KT004',
+                'kategori_nama' => 'Fashion Wanita',
             ],
             [
                 'kategori_id' => 5,
-                'kategori_kode' => 'MNM',
-                'kategori_nama' => 'Minuman',
+                'kategori_kode' => 'KT005',
+                'kategori_nama' => 'Produk Kecantikan',
             ],
         ];
         DB::table('m_kategori') -> insert($data);

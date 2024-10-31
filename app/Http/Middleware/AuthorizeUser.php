@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
 class AuthorizeUser
 {
@@ -13,28 +14,34 @@ class AuthorizeUser
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    
-    //  //Pratikum 2
-    //  public function handle(Request $request, Closure $next, $role = ''): Response
-    // {
-    //     $user = $request->user(); // ambil data user yg login
-    //                               // fungsi user() diambil dari UserModel.php
-    //     if($user->hasRole($role)){ // cek apakah user punya role yg diinginkan
-    //         return $next($request);
-    //     }
-    
-    //     // jika tidak punya role, maka tampilkan error 403
-    //     abort(403, 'Forbidden. Kamu tidak punya akses ke halaman ini');
-    // }
 
-    //Pratikum3
-    public function handle(Request $request, Closure $next, ... $roles): Response
+    
+        public function handle(Request $request, Closure $next, $role = ''): Response 
     {
-        $user_role = $request->user()->getRole();   //ambil data level_kode dari user yang login
-        if(in_array($user_role, $roles)){  //memeriksa bila level_kode user ada di dalam array roles
-            return $next($request); //jika ada, maka request dilanjutkan
-        }
-        //jika tidak punya role, maka ditampilkan eror 403
-        abort(403, 'Forbidden. Anda tidak punya akses ke laman ini!');
+        $user = $request->user();
+        if ($user->hasRole($role)) {
+        return $next($request);
+    }
+
+    abort(403, 'Forbiddan. Kamu tidak punya akses ke halaman ini');
+}
+public function register(Request $request): Response
+    {
+        // Validasi input untuk registrasi
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        // Simpan user baru
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
+        // Redirect atau respons sukses
+        return response()->json(['message' => 'Registration successful.'], 201);
     }
 }
+
+
