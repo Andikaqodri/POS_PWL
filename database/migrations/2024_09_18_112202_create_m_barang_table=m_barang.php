@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_barangs', function (Blueprint $table) {
-            $table->bigIncrements('barang_id'); //  kolom barang_id
-            $table->bigInteger('kategori_id')->unsigned(); //  kolom kategori_id
-            $table->string('barang_kode', 10); //  kolom barang_kode
-            $table->string('barang_nama', 100); //  kolom barang_nama
-            $table->integer('harga_beli'); //  kolom harga_beli
-            $table->integer('harga_jual'); // kolom harga_jual
-            $table->timestamps(); // kolom created_at dan updated_at
+        Schema::create('m_barang', function(Blueprint $table) {
+            $table->id('barang_id');
+            $table->unsignedBigInteger('kategori_id')->index(); //untuk Foreign Key
+            $table->string('barang_kode', 10)->unique(); //memastikan tidak ada barang dengan kode yang sama
+            $table->string('barang_nama', 100);
+            $table->integer('harga_beli');
+            $table->integer('harga_jual');
+            $table->timestamps();
 
-            $table->foreign('kategori_id')->references('kategori_id')->on('m_kategoris');
+            //Mendefinisikan Foreign Key pada kolom kategori_id mengacu pada kolom kategori_id di tabel m_kategori
+            $table->foreign('kategori_id')->references('kategori_id')->on('m_kategori');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('m_barangs');
+        Schema::dropIfExists('m_barang');
     }
 };

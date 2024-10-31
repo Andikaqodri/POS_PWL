@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('jumlah'); // Menambahkan kolom jumlah
             $table->timestamps(); // Menambahkan kolom created_at dan updated_at
 
-            $table->foreign('barang_id')->references('barang_id')->on('m_barangs');
+            $table->foreign('barang_id')->references('barang_id')->on('m_barang');
             $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan');
         });
     }
